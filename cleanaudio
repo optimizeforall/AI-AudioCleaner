@@ -1,0 +1,31 @@
+#!/usr/bin/python3
+
+from audoai.noise_removal import NoiseRemovalClient
+import sys
+import os
+
+def main():
+    # check if user input argument, if not, print error
+    if len(sys.argv) < 2:
+        print("Error: No input file specified")
+        sys.exit(1)
+    
+    # if file doesn't exist, print error
+    if not os.path.exists(sys.argv[1]):
+        print("Error: File does not exist")
+        sys.exit(1)
+
+    # print first sys argument
+    noise_removal = NoiseRemovalClient(api_key='d9558beeef5bc0984fdfe245f497386b')
+
+    # Remove audio from listed files
+    for i in range(1, len(sys.argv)):
+            result = noise_removal.process(sys.argv[i])
+
+            # creat string for output fileo
+            output_file = sys.argv[i].split('.')[0] + '_cleaned.' + sys.argv[i].split('.')[1]
+            result.save(output_file);
+            print('Saved cleaned audio to ' + output_file)
+
+if __name__ == "__main__":
+    main()
