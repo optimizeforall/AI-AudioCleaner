@@ -17,6 +17,7 @@ def main():
 
     # print first sys argument
     noise_removal = NoiseRemovalClient(os.environ.get("AUDO_API_KEY"))
+    
     # Remove audio from listed files    
     for i in range(1, len(sys.argv)):
             result = noise_removal.process(sys.argv[i])
